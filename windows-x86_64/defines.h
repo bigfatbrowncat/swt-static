@@ -24,3 +24,12 @@
  * platform are included.
  *
  */
+ 
+#define __in 
+#define __out
+#define __inout 
+#define __inout_ecount(A) 
+#define __in_opt
+
+#define NO_PathGradientBrush_1SetGraphicsPath
+#define NO_Pen_1GetBrush

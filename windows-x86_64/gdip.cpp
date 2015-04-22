@@ -837,7 +837,7 @@ JNIEXPORT jint JNICALL Gdip_NATIVE(Graphics_1DrawArc)
 {
 	jint rc = 0;
 	Gdip_NATIVE_ENTER(env, that, Graphics_1DrawArc_FUNC);
-	rc = (jint)((Graphics *)arg0)->DrawArc((Pen *)arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+	rc = (jint)((Graphics *)arg0)->DrawArc((Pen *)arg1, (INT)arg2, (INT)arg3, (INT)arg4, (INT)arg5, arg6, arg7);
 	Gdip_NATIVE_EXIT(env, that, Graphics_1DrawArc_FUNC);
 	return rc;
 }
@@ -879,7 +879,7 @@ JNIEXPORT jint JNICALL Gdip_NATIVE(Graphics_1DrawEllipse)
 {
 	jint rc = 0;
 	Gdip_NATIVE_ENTER(env, that, Graphics_1DrawEllipse_FUNC);
-	rc = (jint)((Graphics *)arg0)->DrawEllipse((Pen *)arg1, arg2, arg3, arg4, arg5);
+	rc = (jint)((Graphics *)arg0)->DrawEllipse((Pen *)arg1, (INT)arg2, (INT)arg3, (INT)arg4, (INT)arg5);
 	Gdip_NATIVE_EXIT(env, that, Graphics_1DrawEllipse_FUNC);
 	return rc;
 }
@@ -946,7 +946,7 @@ JNIEXPORT jint JNICALL Gdip_NATIVE(Graphics_1DrawLine)
 {
 	jint rc = 0;
 	Gdip_NATIVE_ENTER(env, that, Graphics_1DrawLine_FUNC);
-	rc = (jint)((Graphics *)arg0)->DrawLine((Pen *)arg1, arg2, arg3, arg4, arg5);
+	rc = (jint)((Graphics *)arg0)->DrawLine((Pen *)arg1, (INT)arg2, (INT)arg3, (INT)arg4, (INT)arg5);
 	Gdip_NATIVE_EXIT(env, that, Graphics_1DrawLine_FUNC);
 	return rc;
 }
@@ -972,7 +972,7 @@ JNIEXPORT jint JNICALL Gdip_NATIVE(Graphics_1DrawRectangle)
 {
 	jint rc = 0;
 	Gdip_NATIVE_ENTER(env, that, Graphics_1DrawRectangle_FUNC);
-	rc = (jint)((Graphics *)arg0)->DrawRectangle((Pen *)arg1, arg2, arg3, arg4, arg5);
+	rc = (jint)((Graphics *)arg0)->DrawRectangle((Pen *)arg1, (INT)arg2, (INT)arg3, (INT)arg4, (INT)arg5);
 	Gdip_NATIVE_EXIT(env, that, Graphics_1DrawRectangle_FUNC);
 	return rc;
 }

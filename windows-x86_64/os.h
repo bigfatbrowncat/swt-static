@@ -876,17 +876,29 @@ typedef struct tagGESTURECONFIG {
 #else
 #define PRINT_CODE(buf, size, format, code) sprintf_s(buf, size, format, code);
 #endif
-#define NATIVE_TRY(env, that, func) \
-	__try {
-#define NATIVE_CATCH(env, that, func) \
-	} __except(EXCEPTION_EXECUTE_HANDLER) { \
-		jclass expClass = (*env)->FindClass(env, "org/eclipse/swt/SWTError");  \
-		if (expClass) { \
-			char buffer[256]; \
-			PRINT_CODE(buffer, 256, "cought native exception: 0x%x", GetExceptionCode()) \
-			(*env)->ThrowNew(env, expClass, buffer); \
-		} \
-	}
+
+#if defined(__MINGW32__) || defined(__MINGW64__)  // No SEH handling here (there is some handling in 64)
+
+	#define NATIVE_TRY(env, that, func) \
+		{
+	#define NATIVE_CATCH(env, that, func) \
+		} 
+	
+#else // MSVC
+
+	#define NATIVE_TRY(env, that, func) \
+		__try {
+	#define NATIVE_CATCH(env, that, func) \
+		} __except(EXCEPTION_EXECUTE_HANDLER) { \
+			jclass expClass = (*env)->FindClass(env, "org/eclipse/swt/SWTError");  \
+			if (expClass) { \
+				char buffer[256]; \
+				PRINT_CODE(buffer, 256, "cought native exception: 0x%x", GetExceptionCode()) \
+				(*env)->ThrowNew(env, expClass, buffer); \
+			} \
+		}
+	
+#endif
 
 #define OS_NATIVE_ENTER_TRY(env, that, func) \
 	OS_NATIVE_ENTER(env, that, func); \

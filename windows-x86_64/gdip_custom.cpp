@@ -209,7 +209,7 @@ JNIEXPORT jint JNICALL Gdip_NATIVE(PathGradientBrush_1SetInterpolationColors)
 			colors[i] = *(Color *)lparg1[i];
 		}
 	}
-	rc = (jint)((PathGradientBrush *)arg0)->SetInterpolationColors(colors, (const REAL *)lparg2, arg3);
+	rc = (jint)((PathGradientBrush *)arg0)->SetInterpolationColors(colors, (REAL *)lparg2, arg3);
 fail:
 	if (lparg1 && colors) {
 		delete[] colors;
