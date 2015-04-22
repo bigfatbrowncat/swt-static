@@ -1,0 +1,4 @@
+This version of SWT is patched in some ways:
+
+1. All makefiles modified to build static libraries (to link them together with other projects)
+2. Windows version is being built with mingw-w64 toolchain on Windows (SEH exceptions turned off, an MSYS makefile created)
