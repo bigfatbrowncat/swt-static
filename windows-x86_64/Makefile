@@ -7,6 +7,7 @@ maj_ver=4
 min_ver=430
 comma_ver=4,4,3,0
 
+LIBNAME="SWT static"
 JAVA_SOURCE_PATH = .
 TARGET = target
 JAVA_CLASSPATH = $(TARGET)/classes
@@ -53,22 +54,22 @@ all: make_swt make_gdip make_wgl $(JAVA_CLASSES)
 #make_awt
 
 $(JAVA_CLASSPATH)/%.class: $(JAVA_SOURCE_PATH)/%.java
-	@echo Compiling $<...
+	@echo [$(LIBNAME)] Compiling $<...
 	if [ ! -d "$(dir $@)" ]; then mkdir -p "$(dir $@)"; fi
 	"$(JAVA_HOME)/bin/javac" -encoding utf8 -sourcepath "$(JAVA_SOURCE_PATH)" -classpath "$(JAVA_CLASSPATH)" -d "$(JAVA_CLASSPATH)" $<
 
 $(OBJ)/%.o: %.c
-	@echo Compiling $<...
+	@echo [$(LIBNAME)] Compiling $<...
 	if [ ! -d "$(dir $@)" ]; then mkdir -p "$(dir $@)"; fi
 	gcc $(CFLAGS) $< -o $@
 
 $(OBJ)/%.o: %.cpp
-	@echo Compiling $<...
+	@echo [$(LIBNAME)] Compiling $<...
 	if [ ! -d "$(dir $@)" ]; then mkdir -p "$(dir $@)"; fi
 	g++ $(CFLAGS) $< -o $@
 
 make_swt: $(SWT_OBJS)
-	@echo Linking swt...
+	@echo [$(LIBNAME)] Linking swt...
 	echo > templrf
 	echo $(SWT_OBJS) >>templrf
 	echo $(WGUILIBS) $(WOLELIBS) >>templrf
@@ -78,7 +79,7 @@ make_swt: $(SWT_OBJS)
 	rm templrf
 
 make_gdip: $(GDIP_OBJS)
-	@echo Linking gdip...
+	@echo [$(LIBNAME)] Linking gdip...
 	echo > templrf
 	echo $(GDIP_OBJS) >>templrf
 	echo $(LFLAGS) $(WGUILIBS) >>templrf
@@ -97,7 +98,7 @@ make_gdip: $(GDIP_OBJS)
 #	rm templrf
 
 make_wgl: $(WGL_OBJS)
-	@echo Linking wgl...
+	@echo [$(LIBNAME)] Linking wgl...
 	echo > templrf
 	echo $(WGL_OBJS) >>templrf
 	echo $(LFLAGS) $(WGUILIBS) >templrf
@@ -109,16 +110,17 @@ make_wgl: $(WGL_OBJS)
 #$(OBJ)/swt.rc: swt.res
 #	windres $(RCFLAGS) -DSWT_ORG_FILENAME=\"$(SWT_LIB)\" -i $< -o $@
 
-swt_gdip.res:
-	rc $(RCFLAGS) -DSWT_ORG_FILENAME=\"$(GDIP_LIB)\" -r -fo swt_gdip.res swt_gdip.rc
+#swt_gdip.res:
+#	rc $(RCFLAGS) -DSWT_ORG_FILENAME=\"$(GDIP_LIB)\" -r -fo swt_gdip.res swt_gdip.rc
 
 #swt_awt.res:
 #	rc $(RCFLAGS) -DSWT_ORG_FILENAME=\"$(AWT_LIB)\" -r -fo swt_awt.res swt_awt.rc
 
-swt_wgl.res:
-	rc $(RCFLAGS) -DSWT_ORG_FILENAME=\"$(WGL_LIB)\" -r -fo swt_wgl.res swt_wgl.rc
+#swt_wgl.res:
+#	rc $(RCFLAGS) -DSWT_ORG_FILENAME=\"$(WGL_LIB)\" -r -fo swt_wgl.res swt_wgl.rc
 
 clean:
+	@echo [$(LIBNAME)] Cleaning everything...
 	rm -rf $(TARGET)
 	
-#.SILENT:
+.SILENT:
