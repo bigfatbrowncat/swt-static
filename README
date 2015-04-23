@@ -1,4 +1,17 @@
-This version of SWT is patched in some ways:
+The current version is SWT 4.4.2
 
+This version of SWT is patched to be used as a static library without any external dependencies.
+
+The list of current modifications (based on "vanilla" src.zip contents):
+
+All platforms:
 1. All makefiles modified to build static libraries (to link them together with other projects)
-2. Windows version is being built with mingw-w64 toolchain on Windows (SEH exceptions turned off, an MSYS makefile created)
+2. All org.eclipse.swt.internal.Library implementations are modified to avoid any external jni library loading
+3. JNI_OnLoad function is commented out in order to avoid possible symbol duplication
+4. All external dependencies that require anything except the default system APIs are commented out (Mozilla XULRunner, etc.). They could be added back, but I don't use them, so they are not targeted by default.
+
+Windows:
+5. Windows version is being built with mingw-w64 toolchain on Windows (SEH exceptions turned off, an MSYS makefile created) to avoid hard and unintuitive configuration of Windows SDK (and linkage problems between microsoft cl compiler and gcc)
+6. There are some excluded features (not much) that are added to defines.h due to some incompleteness of mingw-w64 WINAPI implementation. Nothing serious, though.
+
+The main problem (and possible issue) under Windows is SEH that's turned off. I didn't manage to fix it yet. If you have any ideas about how to do it, you are welcome to create an issue ticket.
