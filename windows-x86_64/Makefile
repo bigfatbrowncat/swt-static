@@ -69,7 +69,7 @@ make_swt: $(SWT_OBJS) $(GDIP_OBJS) $(WGL_OBJS)
 	echo $(GDIP_LIBS) >>templrf
 	echo $(WGL_LIBS) >>templrf
 	g++ -static -mdll -mwindows -o $(TARGET)/swt.dll @templrf
-	ar rs $(TARGET)/libswt.a $(SWT_OBJS)
+	ar rs $(TARGET)/libswt.a $(SWT_OBJS) $(GDIP_OBJS) $(WGL_OBJS)
 	rm templrf
 
 #make_awt: $(AWT_OBJS) swt_awt.res
