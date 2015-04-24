@@ -5185,7 +5185,7 @@ void applicationWillFinishLaunching (long /*int*/ id, long /*int*/ sel, long /*i
 	 * 		/System/Library/..../Resources/<user's default language>.lproj/DefaultApp.nib
 	 * 		/System/Library/..../Resources/English.lproj/DefaultApp.nib.
 	 */
-	NSBundle bundle = NSBundle.bundleWithIdentifier(NSString.stringWith("com.apple.JavaVM"));
+	NSBundle bundle = NSBundle.mainBundle();  //NSBundle.bundleWithIdentifier(NSString.stringWith("com.apple.JavaVM"));
 	NSDictionary dict = NSDictionary.dictionaryWithObject(applicationDelegate, NSString.stringWith("NSOwner"));
 	NSString path = bundle.pathForResource(NSString.stringWith("DefaultApp"), NSString.stringWith("nib"), null, languageDisplayName);
 	if (path == null) path = bundle.pathForResource(NSString.stringWith("DefaultApp"), NSString.stringWith("nib"), null, NSString.stringWith(languageISOValue));

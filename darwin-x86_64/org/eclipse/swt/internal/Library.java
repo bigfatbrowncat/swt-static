@@ -233,7 +233,8 @@ static boolean load (String libName, StringBuffer message) {
  * @param name the name of the library to load
  */
 public static void loadLibrary (String name) {
-	loadLibrary (name, true);
+	//loadLibrary (name, true);
+	// Do nothing (we have all the native code statically linked)
 }
 
 /**
@@ -249,6 +250,10 @@ public static void loadLibrary (String name) {
  * @param mapName true if the name should be mapped, false otherwise
  */
 public static void loadLibrary (String name, boolean mapName) {
+	// Do nothing (we have all the native code statically linked)
+}
+
+static void _loadLibrary (String name, boolean mapName) {
 	String prop = System.getProperty ("sun.arch.data.model"); //$NON-NLS-1$
 	if (prop == null) prop = System.getProperty ("com.ibm.vm.bitmode"); //$NON-NLS-1$
 	if (prop != null) {

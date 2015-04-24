@@ -7,6 +7,7 @@ JAVA_SOURCE_PATH = .
 TARGET = target
 JAVA_CLASSPATH = $(TARGET)/classes
 OBJ = $(TARGET)/obj
+JAVA_HOME = $(shell /usr/libexec/java_home)
 
 SWT_PREFIX=swt
 SWTPI_PREFIX=swt-pi
