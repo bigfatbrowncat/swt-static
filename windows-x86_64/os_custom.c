@@ -15,7 +15,7 @@
 
 #define OS_NATIVE(func) Java_org_eclipse_swt_internal_win32_OS_##func
 
-__declspec(dllexport) HRESULT DllGetVersion(DLLVERSIONINFO *dvi);
+/*__declspec(dllexport) HRESULT DllGetVersion(DLLVERSIONINFO *dvi);
 HRESULT DllGetVersion(DLLVERSIONINFO *dvi)
 {
 	dvi->dwMajorVersion = SWT_VERSION / 1000;
@@ -32,7 +32,7 @@ BOOL WINAPI DllMain(HANDLE hInstDLL, DWORD dwReason, LPVOID lpvReserved)
 		if (g_hInstance == NULL) g_hInstance = hInstDLL;
 	}
 	return TRUE;
-}
+}*/
 
 #ifndef NO_GetLibraryHandle
 JNIEXPORT jintLong JNICALL OS_NATIVE(GetLibraryHandle)
@@ -40,7 +40,7 @@ JNIEXPORT jintLong JNICALL OS_NATIVE(GetLibraryHandle)
 {
 	jintLong rc;
 	OS_NATIVE_ENTER(env, that, GetLibraryHandle_FUNC)
-	rc = (jintLong)g_hInstance;
+	rc = (jintLong)GetModuleHandle(NULL); // g_hInstance;
 	OS_NATIVE_EXIT(env, that, GetLibraryHandle_FUNC)
 	return rc;
 }
