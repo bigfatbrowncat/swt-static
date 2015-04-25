@@ -39,9 +39,16 @@ CFLAGS := $(WFLAGS) -c -O2 -DJNI64 -DNDEBUG $(CFLAGS) -DSWT_VERSION=$(SWT_VERSIO
 RCFLAGS := -DSWT_FILE_VERSION=\"$(maj_ver).$(min_ver)\" -DSWT_COMMA_VERSION=$(comma_ver)
 
 JAVA_FILES = $(shell cd $(JAVA_SOURCE_PATH); find . -type f -name \*.java | awk '{ sub(/.\//,"") }; 1')
+JAVA_PROPS_SRC = $(shell cd $(JAVA_SOURCE_PATH); find . -type f -name \*.properties | awk '{ sub(/.\//,"") }; 1')
 JAVA_CLASSES = $(addprefix $(JAVA_CLASSPATH)/,$(addsuffix .class,$(basename $(JAVA_FILES))))
+JAVA_PROPS = $(addprefix $(JAVA_CLASSPATH)/,$(addsuffix .properties,$(basename $(JAVA_PROPS_SRC))))
 
-all: make_swt $(JAVA_CLASSES)
+all: swt_lib $(JAVA_CLASSES) $(JAVA_PROPS)
+
+$(JAVA_CLASSPATH)/%.properties: $(JAVA_SOURCE_PATH)/%.properties
+	@echo [$(LIBNAME)] Copying $<...
+	if [ ! -d "$(dir $@)" ]; then mkdir -p "$(dir $@)"; fi
+	cp -f $< $@
 
 $(JAVA_CLASSPATH)/%.class: $(JAVA_SOURCE_PATH)/%.java
 	@echo [$(LIBNAME)] Compiling $<...
@@ -58,7 +65,7 @@ $(OBJ)/%.o: %.cpp
 	if [ ! -d "$(dir $@)" ]; then mkdir -p "$(dir $@)"; fi
 	g++ $(CFLAGS) $< -o $@
 
-make_swt: $(SWT_OBJS) $(GDIP_OBJS) $(WGL_OBJS)
+swt_lib: $(SWT_OBJS) $(GDIP_OBJS) $(WGL_OBJS)
 	@echo [$(LIBNAME)] Linking swt...
 	echo > templrf
 	echo $(SWT_OBJS) >>templrf

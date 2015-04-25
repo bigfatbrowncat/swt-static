@@ -737,7 +737,7 @@ public void setMenu (Menu menu) {
 		nsItem.setSubmenu (menu.nsMenu);
 	}
 	
-	if (menu != null) {
+	if (menu == null) {
 		nsItem.setTarget(null);
 		nsItem.setAction(0);
 	} else {
