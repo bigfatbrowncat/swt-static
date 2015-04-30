@@ -13,17 +13,17 @@
 #include "os_stats.h"
 
 JNIEXPORT void JNICALL Java_org_eclipse_swt_graphics_GC_applyAlpha
-	(JNIEnv *env, jclass that, jbyteArray jSrcData, jbyteArray jAlphaData, jint srcWidth, jint srcHeight, jint imgWidth, jint imgHeight, jint srcX, jint srcY)
+	(JNIEnv *env, jclass that, jlong jDIBBMBits, jbyteArray jAlphaData, jint srcWidth, jint srcHeight, jint imgWidth, jint imgHeight, jint srcX, jint srcY)
 {
-	char *srcData, *alphaData;
+	char *srcData = (char*)jDIBBMBits, *alphaData;
 #ifdef JNI_VERSION_1_2
 	if (IS_JNI_1_2) {
-		if ((srcData = (*env)->GetPrimitiveArrayCritical(env, jSrcData, NULL)) == NULL) goto fail;
+		//if ((srcData = (*env)->GetPrimitiveArrayCritical(env, jSrcData, NULL)) == NULL) goto fail;
 		if ((alphaData = (*env)->GetPrimitiveArrayCritical(env, jAlphaData, NULL)) == NULL) goto fail;
 	} else
 #endif
 	{
-		if ((srcData = (*env)->GetByteArrayElements(env, jSrcData, NULL)) == NULL) goto fail;
+		//if ((srcData = (*env)->GetByteArrayElements(env, jSrcData, NULL)) == NULL) goto fail;
 		if ((alphaData = (*env)->GetByteArrayElements(env, jAlphaData, NULL)) == NULL) goto fail;
 	}
 
@@ -54,12 +54,12 @@ JNIEXPORT void JNICALL Java_org_eclipse_swt_graphics_GC_applyAlpha
 fail:
 	#ifdef JNI_VERSION_1_2
 		if (IS_JNI_1_2) {
-			if (srcData != NULL) (*env)->ReleasePrimitiveArrayCritical(env, jSrcData, srcData, 0);
+			//if (srcData != NULL) (*env)->ReleasePrimitiveArrayCritical(env, jSrcData, srcData, 0);
 			if (alphaData != NULL) (*env)->ReleasePrimitiveArrayCritical(env, jAlphaData, alphaData, 0);
 		} else
 	#endif
 		{
-			if (srcData != NULL) (*env)->ReleaseByteArrayElements(env, jSrcData, srcData, 0);
+			//if (srcData != NULL) (*env)->ReleaseByteArrayElements(env, jSrcData, srcData, 0);
 			if (alphaData != NULL) (*env)->ReleaseByteArrayElements(env, jAlphaData, alphaData, 0);
 		}
 
