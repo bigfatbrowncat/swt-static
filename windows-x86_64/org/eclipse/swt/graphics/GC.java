@@ -1188,6 +1188,10 @@ void drawBitmap(Image srcImage, int srcX, int srcY, int srcWidth, int srcHeight,
 	}
 }
 
+/*JNIEXPORT void JNICALL Java_org_eclipse_swt_graphics_GC_applyAlpha
+(JNIEnv *env, jclass that, jbyteArray jSrcData, jbyteArray jAlphaData, jint srcWidth, jint srcHeight, jint imgWidth, jint imgHeight, jint srcX, jint srcY)*/
+private native static void applyAlpha(byte[] srcData, byte[] alphaData, int srcWidth, int srcHeight, int imgWidth, int imgHeight, int srcX, int srcY);
+
 void drawBitmapAlpha(Image srcImage, int srcX, int srcY, int srcWidth, int srcHeight, int destX, int destY, int destWidth, int destHeight, boolean simple, BITMAP bm, int imgWidth, int imgHeight) {
 	/* Simple cases */
 	if (srcImage.alpha == 0) return;
@@ -1226,9 +1230,11 @@ void drawBitmapAlpha(Image srcImage, int srcX, int srcY, int srcWidth, int srcHe
 			OS.BitBlt(memHdc, 0, 0, srcWidth, srcHeight, srcHdc, srcX, srcY, OS.SRCCOPY);
 			byte[] srcData = new byte[dibBM.bmWidthBytes * dibBM.bmHeight];
 			OS.MoveMemory(srcData, dibBM.bmBits, srcData.length);
-			final int apinc = imgWidth - srcWidth;
-			int ap = srcY * imgWidth + srcX, sp = 0;
 			byte[] alphaData = srcImage.alphaData;
+			
+			applyAlpha(srcData, alphaData, srcWidth, srcHeight, imgWidth, imgHeight, srcX, srcY);
+			/*final int apinc = imgWidth - srcWidth;
+			int ap = srcY * imgWidth + srcX, sp = 0;
 			for (int y = 0; y < srcHeight; ++y) {
 				for (int x = 0; x < srcWidth; ++x) {
 					int alpha = alphaData[ap++] & 0xff;
@@ -1245,7 +1251,9 @@ void drawBitmapAlpha(Image srcImage, int srcX, int srcY, int srcWidth, int srcHe
 					sp += 4;
 				}
 				ap += apinc;
-			}
+			}*/
+			
+			
 			OS.MoveMemory(dibBM.bmBits, srcData, srcData.length);
 			blend.SourceConstantAlpha = (byte)0xff;
 			blend.AlphaFormat = OS.AC_SRC_ALPHA;

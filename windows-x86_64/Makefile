@@ -16,7 +16,7 @@ OBJ = $(TARGET)/obj
 SWT_LIBS   = -lcomctl32 -lshell32 -limm32 -loleacc -lusp10 -lwininet -lcrypt32 -lshlwapi
 GDIP_LIBS  = -lgdiplus
 WGL_LIBS   = -lopengl32
-SWT_OBJS   = $(OBJ)/swt.o $(OBJ)/callback.o $(OBJ)/c.o $(OBJ)/c_stats.o $(OBJ)/os.o $(OBJ)/os_structs.o $(OBJ)/os_custom.o $(OBJ)/os_stats.o $(OBJ)/com_structs.o $(OBJ)/com.o $(OBJ)/com_stats.o $(OBJ)/com_custom.o
+SWT_OBJS   = $(OBJ)/swt.o $(OBJ)/callback.o $(OBJ)/c.o $(OBJ)/c_stats.o $(OBJ)/os.o $(OBJ)/os_structs.o $(OBJ)/os_custom.o $(OBJ)/os_stats.o $(OBJ)/com_structs.o $(OBJ)/com.o $(OBJ)/com_stats.o $(OBJ)/com_custom.o $(OBJ)/os_ext.o
 GDIP_OBJS  = $(OBJ)/gdip.o $(OBJ)/gdip_structs.o $(OBJ)/gdip_stats.o $(OBJ)/gdip_custom.o
 WGL_OBJS   = $(OBJ)/wgl.o $(OBJ)/wgl_structs.o $(OBJ)/wgl_stats.o
 
